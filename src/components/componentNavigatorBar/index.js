@@ -17,23 +17,15 @@ class ComponentNavigatorBar extends Component {
     const self = this
     Taro.getSystemInfo({
       success (system) {
-        console.log(system)
         self.setState({
           statusBarHeight: system.statusBarHeight,
         })
-        console.log(system.statusBarHeight)
-        let platformReg = /iOS/i
-        if (platformReg.test(system.system)) {
-          self.setState({
-            navBarHeight: Number(system.statusBarHeight) + 32 + 8,
-            titleBarHeight: 32 + 8
-          })
-        } else {
-          self.setState({
-            navBarHeight: Number(system.statusBarHeight) + 32 + 16,
-            titleBarHeight: 32 + 16
-          })
-        }
+        const capsule = wx.getMenuButtonBoundingClientRect()
+
+        self.setState({
+          navBarHeight: capsule.height + (capsule.top - Number(system.statusBarHeight)) * 2 + Number(system.statusBarHeight),
+          titleBarHeight: capsule.height + (capsule.top - Number(system.statusBarHeight)) * 2
+        })
       }
     })
   }
@@ -57,7 +49,7 @@ class ComponentNavigatorBar extends Component {
 
         <View className='navigatorBar__main' style={{height: navBarHeight + 'px', backgroundColor: navBackgroundColor}}>
 
-          <View className='navigatorBar__statusBar' style={{height: statusBarHeight + 'px', backgroundColor: 'red'}} />
+          <View className='navigatorBar__statusBar' style={{height: statusBarHeight + 'px'}} />
 
           <View className='navigatorBar__titleBar' style={{height: titleBarHeight + 'px'}}>
             <View className='capsule'>

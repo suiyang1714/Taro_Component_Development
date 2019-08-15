@@ -13,7 +13,8 @@ import ComponentNavigatorBar from '../../components/componentNavigatorBar/index'
 class Index extends Component {
 
   config = {
-    navigationStyle: 'custom'
+    navigationStyle: 'custom',
+    enablePullDownRefresh: true
   }
 
   componentWillReceiveProps (nextProps) {
@@ -34,6 +35,9 @@ class Index extends Component {
     return (
       <View className='index'>
         <ComponentNavigatorBar />
+        <View className='main'>
+          内容
+        </View>
       </View>
     )
   }
